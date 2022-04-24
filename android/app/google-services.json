@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "107935049799",
+    "project_id": "bluehive-ecommerce",
+    "storage_bucket": "bluehive-ecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107935049799:android:48c88603db3960760be962",
+        "android_client_info": {
+          "package_name": "com.example.bluehive_exam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107935049799-fip380ppohl2kp4ipbteoq3k14sta4g0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQoCf-vnHVMLHuMGU8LeCa3SwnyFo_s_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107935049799-fip380ppohl2kp4ipbteoq3k14sta4g0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
