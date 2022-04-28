@@ -7,18 +7,20 @@ import '../../../screens/unauthenticated_screens/register_screen/register_screen
 
 @MaterialAutoRouter(
   routes: [
-    AutoRoute(
+    CustomRoute(
       path: '/login',
       // path: '/login',
       name: 'LoginRoute',
       page: LoginScreen,
       initial: true,
+      transitionsBuilder: TransitionsBuilders.noTransition,
     ),
-    AutoRoute(
+    CustomRoute(
       path: '/register',
       // path: '/register',
       name: 'RegisterRoute',
       page: RegistrationScreen,
+      transitionsBuilder: TransitionsBuilders.noTransition,
     ),
   ]
 )

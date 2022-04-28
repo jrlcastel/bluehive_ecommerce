@@ -1,6 +1,8 @@
 import 'package:bluehive_exam/models/product.dart';
 import 'package:flutter/material.dart';
 
+import 'product_image.dart';
+
 class ProductWidget extends StatelessWidget {
 
 
@@ -54,8 +56,7 @@ class ProductWidget extends StatelessWidget {
       child: Container(
         width: width,
         padding: EdgeInsets.fromLTRB(horizontalPadding, 10, horizontalPadding, 10),
-        // height: 20,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(width: 1, color: Colors.grey)
           )
@@ -68,12 +69,14 @@ class ProductWidget extends StatelessWidget {
             // image
             Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue[200],
-                borderRadius: BorderRadius.circular(10)
+                // color: Colors.lightBlue[200],
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(width: 1, color: Colors.black38)
               ),
               margin: EdgeInsets.only(right: imageAndDetailsSpacing),
               height: imageDimensions,
               width: imageDimensions,
+              child: ProductImage(imgUrl: product.imageUrl),
             ),
       
             // details

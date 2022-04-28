@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:bluehive_exam/controllers/repositories/product_repository.dart';
 import 'package:bluehive_exam/models/product.dart';
@@ -11,7 +9,6 @@ part 'products_state.dart';
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
 
   final ProductRepository productRepository;
-  StreamSubscription? _categorySubscription;
 
   ProductsBloc({
     required this.productRepository,

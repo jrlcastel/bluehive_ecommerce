@@ -1,11 +1,12 @@
-
+// packages
+import 'package:bluehive_exam/views/routing/authentication_wrapper/routes/authenticated_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// local foles
+// local files
 import '../../../controllers/blocs/user_bloc/user_bloc.dart';
+import '../../../packages/user_data_wrapper.dart/user_data_wrapper.dart';
 import 'loading_screen.dart';
-import 'routes/authenticated_routes.dart';
 import 'routes/unauthenticated_routes.dart';
 
 class AuthenticationWrapper extends StatefulWidget {
@@ -17,35 +18,28 @@ class AuthenticationWrapper extends StatefulWidget {
 
 class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
 
-  // authenticated routes
-  final Widget _authenticatedRoutes = AuthenticatedRoutes();
-  // unauthenticated routes
-  final Widget _unauthenticatedRoutes = UnauthenticatedRoutes();
-  // loading
+  // avoid re-initialization on widget rebuild
   final Widget _loadingScreen = const UserLoadingScreen();
+  final Widget _unauthenticatedRoutes = UnauthenticatedRoutes();
+  final Widget _authenticatedRoutes = AuthenticatedRoutes();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, _userState) {
 
-        // loading
+        // * Loading user
         if(_userState is UserLoading) {
           return _loadingScreen;
         }
-        // authenticated
+        // * Logged in
         else if (_userState is UserAuthenticated) {
-          return _authenticatedRoutes;
+          return UserDataWrapper(
+            user: _userState.userCredential,
+            child: _authenticatedRoutes,
+          );
         }
-        // unauthenticated & error
-        else if (
-          _userState is UserUnauthenticated || 
-          _userState is UserError || 
-          _userState is UserInitial
-        ) {
-          return _unauthenticatedRoutes;
-        }
-        // unknown states
+        // * Logged out
         else {
           return _unauthenticatedRoutes;
         }

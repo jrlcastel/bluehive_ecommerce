@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 import '../../screens/unauthenticated_screens/loading_screen/loading_screen.dart';
 
 class UserLoadingScreen extends StatelessWidget {
@@ -13,7 +14,7 @@ class UserLoadingScreen extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoadingScreen(),
+      home: const LoadingScreen(),
     );
   }
 }

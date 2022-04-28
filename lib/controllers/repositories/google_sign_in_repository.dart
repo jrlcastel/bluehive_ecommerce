@@ -1,66 +1,68 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 
-class GoogleAuthRepository {
+// class AuthenticationRepository {
 
-  final googleSignIn = GoogleSignIn();
+//   final googleSignIn = GoogleSignIn();
 
-  GoogleSignInAccount? _user;
+//   GoogleSignInAccount? _user;
 
-  Future<UserCredential?> googleLogin() async {
 
-    final _googleUser  = await googleSignIn.signIn();
 
-    if(_googleUser==null) return null;
+//   Future<UserCredential?> googleLogin() async {
 
-    _user = _googleUser;
+//     final _googleUser  = await googleSignIn.signIn();
 
-    final _googleuth = await _googleUser.authentication;
+//     if(_googleUser==null) return null;
 
-    final _credential = GoogleAuthProvider.credential(
-      accessToken: _googleuth.accessToken,
-      idToken: _googleuth.idToken,
-    );
+//     _user = _googleUser;
 
-    UserCredential _googleUserCredential = await FirebaseAuth.instance.signInWithCredential(_credential);
+//     final _googleuth = await _googleUser.authentication;
+
+//     final _credential = GoogleAuthProvider.credential(
+//       accessToken: _googleuth.accessToken,
+//       idToken: _googleuth.idToken,
+//     );
+
+//     UserCredential _googleUserCredential = await FirebaseAuth.instance.signInWithCredential(_credential);
     
-    return _googleUserCredential;
-  }
+//     return _googleUserCredential;
+//   }
 
   
 
-  Future<bool> googelLogout() async {
+//   Future<bool> googelLogout() async {
 
-    try {
-      await googleSignIn.signOut(); 
-      return true;
-    } catch (e) {
-      return false;
-    }
+//     try {
+//       await googleSignIn.signOut(); 
+//       return true;
+//     } catch (e) {
+//       return false;
+//     }
 
-  }
+//   }
 
   
 
-  Future<dynamic> googleSilentLogin() async {
+//   Future<dynamic> googleSilentLogin() async {
 
-    final _googleUser  = await googleSignIn.signInSilently();
+//     final _googleUser  = await googleSignIn.signInSilently();
 
-    if(_googleUser==null) return null;
+//     if(_googleUser==null) return null;
 
-    _user = _googleUser;
+//     _user = _googleUser;
 
-    final _googleuth = await _googleUser.authentication;
+//     final _googleuth = await _googleUser.authentication;
 
-    final _credential = GoogleAuthProvider.credential(
-      accessToken: _googleuth.accessToken,
-      idToken: _googleuth.idToken,
-    );
+//     final _credential = GoogleAuthProvider.credential(
+//       accessToken: _googleuth.accessToken,
+//       idToken: _googleuth.idToken,
+//     );
 
-    UserCredential _googleUserCredential = await FirebaseAuth.instance.signInWithCredential(_credential);
+//     UserCredential _googleUserCredential = await FirebaseAuth.instance.signInWithCredential(_credential);
 
-    return _googleUserCredential;
+//     return _googleUserCredential;
 
-  }
+//   }
 
-}
+// }

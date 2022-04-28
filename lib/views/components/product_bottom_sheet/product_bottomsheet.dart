@@ -2,93 +2,70 @@ import 'package:bluehive_exam/views/components/product_widget/product_widget.dar
 import 'package:flutter/material.dart';
 
 import '../../../models/product.dart';
+import 'custom_number_picker.dart';
 
 class ProductBottomSheet extends StatelessWidget {
+
   final Product product;
-  final VoidCallback onAddToCart;
+  final Function(int) onAddToCart;
+  
   const ProductBottomSheet({
     Key? key,
     required this.product,
     required this.onAddToCart,
   }) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
 
-          ProductWidget(
-            product: product,
-            horizontalPadding: 15,
-            imageDimensions: 110,
-            topMargin: 0,
-            width: MediaQuery.of(context).size.width,
-          ),
+    int _value = 1;
 
-          // Container(
-          //   margin: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-          //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          //   child: Row(
-          //     children: [
+    return Column(
+      children: [
 
+        ProductWidget(
+          product: product,
+          horizontalPadding: 15,
+          imageDimensions: 110,
+          topMargin: 0,
+          width: MediaQuery.of(context).size.width,
+        ),
 
-          //       // quantity
-          //       ElevatedButton(
-          //         onPressed: (){},
-          //         child: Padding(padding: EdgeInsets.all(5), child: Icon(Icons.remove)),
-          //         style: ElevatedButton.styleFrom(
-          //           shape: CircleBorder(),
-          //           // padding: EdgeInsets.all(5),
-          //         ),
-          //       ),
+        CustomNumberPicker(
+          initialValue: 1,
+          onUpdate: (val) {_value = val;},
+        ),
 
-          //       Expanded(
-          //         child: TextFormField(
-          //           keyboardType: TextInputType.number,         
-          //           style: TextStyle(
-          //             fontSize: 15.0,
-          //             height: 2.0,
-          //             color: Colors.black                  
-          //           ),
-          //         ),
-          //       ),
-
-          //       ElevatedButton(
-          //         onPressed: (){},
-          //         child: Padding(padding: EdgeInsets.all(5), child: Icon(Icons.add)),
-          //         style: ElevatedButton.styleFrom(
-          //           shape: CircleBorder(),
-          //           // padding: EdgeInsets.all(5),
-          //         ),
-          //       ),
-
-          //     ],
-          //   ),
-          // ),
-
-          Container(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: ElevatedButton(onPressed: (){ Navigator.of(context).pop(); }, child: Text('Cancel'))
-                  ),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: ElevatedButton(
+                  child: const Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop(); 
+                  },
                 ),
-
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: ElevatedButton(onPressed: onAddToCart, child: Text('Add to Cart'))
-                  ),
-                )
-              ],
+              ),
             ),
-          ),
 
-        ],
-      )
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    onAddToCart(_value);
+                  },
+                  child: const Text('Add to Cart')
+                )
+              ),
+            )
+          ],
+        ),
+
+      ],
     );
   }
 }

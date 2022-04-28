@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 
 class CustomNumberPicker extends StatelessWidget {
+
   final int value;
-  final Function(int) onChange;
+  final Function(int, int) onUpdate;
+  final Function onDelete;
+
   const CustomNumberPicker({
     Key? key,
     required this.value,
-    required this.onChange,
+    required this.onUpdate,
+    required this.onDelete,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 15),
+      margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -23,13 +27,28 @@ class CustomNumberPicker extends StatelessWidget {
 
 
           Expanded(
-            child: Container(
-              child: Center(child: Icon(Icons.remove, size: 25)),
+            child: GestureDetector(
+              onTap: () {
+                onUpdate(value,value-1);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(13),
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.remove,
+                    size: 25
+                  )
+                )
+              ),
             )
           ),
           
           Expanded(
             child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
               decoration: const BoxDecoration(
                 border: Border(
                   right: BorderSide(width: 1, color: Colors.grey),
@@ -43,8 +62,22 @@ class CustomNumberPicker extends StatelessWidget {
           ),
 
           Expanded(
-            child: Container(
-              child: Center(child: Icon(Icons.add, size: 25,),),
+            child: GestureDetector(
+              onTap: () {
+                onUpdate(value,value+1);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(13),
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.add,
+                    size: 25
+                  )
+                )
+              ),
             )
           ),
 

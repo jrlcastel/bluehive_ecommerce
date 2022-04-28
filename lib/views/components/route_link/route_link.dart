@@ -17,23 +17,19 @@ class RouteLink extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         child: Row(
           children: [
     
-            Container(
-              child: Icon(
-                icon,
-                size: iconSize,
-              )
+            Icon(
+              icon,
+              size: iconSize,
             ),
     
-            Container(
-              child: Text(
-                name,
-                style: null,
-              )
+            Text(
+              name,
+              style: null,
             ),
     
           ],

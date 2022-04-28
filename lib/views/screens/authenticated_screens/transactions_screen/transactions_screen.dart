@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'transaction_list.dart';
+
 class TransactionsScreen extends StatelessWidget {
   const TransactionsScreen({Key? key}) : super(key: key);
 
@@ -11,11 +13,10 @@ class TransactionsScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-          // ! remove this after successful test run
-          color: Colors.black,
+          color: Colors.white,
           height: double.infinity,
           width: double.infinity,
-          // child: null,
+          child: const TransactionDetailsList(),
         ),
       ),
     );

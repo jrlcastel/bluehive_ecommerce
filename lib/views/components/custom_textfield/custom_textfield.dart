@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
+
   final String hintText; 
   final TextEditingController controller;
   final EdgeInsets margin;
@@ -9,6 +10,9 @@ class CustomTextField extends StatelessWidget {
   final double? width;
   final double? height;
   final bool obscureText;
+  // validation
+  final String? Function(String?)? validator;
+
   const CustomTextField({
     Key? key,
     // this.flex = 0,
@@ -19,6 +23,8 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     required this.controller,
     this.obscureText = false,
+    // validator
+    required this.validator,
   }) : super(key: key);
 
   @override
@@ -35,16 +41,14 @@ class CustomTextField extends StatelessWidget {
           TextFormField(
             obscureText: obscureText,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              contentPadding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               filled: true,
               fillColor: Colors.transparent,
-              border: OutlineInputBorder(
-                // borderRadius: BorderRadius.circular(13),
-              ),
               label: Text(hintText),
               hintText: hintText,
             ),
             controller: controller,
+            validator: validator,
           )
     
         ],

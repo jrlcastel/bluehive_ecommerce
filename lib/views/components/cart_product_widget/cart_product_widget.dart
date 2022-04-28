@@ -1,12 +1,14 @@
+import 'package:bluehive_exam/views/components/cart_product_widget/cart_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/product.dart';
 import '../../../packages/custom_number_picker/custom_number_picker.dart';
 
 class CartProductWidget extends StatelessWidget {
   
   // product info
-  final String productName;
-  final double price;
+  final Product? product;
+  // cart info
   final int quantity;
   // widget dimension and spacing
   final double width;
@@ -24,12 +26,13 @@ class CartProductWidget extends StatelessWidget {
   final VoidCallback? onTap;
   // number picker
   final bool showNumberPicker;
+  // events
+  final Function(int, int) onUpdate;
 
   const CartProductWidget({
     // product info
-    this.productName = 'Loading',
-    this.price = 0,
-    this.quantity = 0,
+    this.product,
+    this.quantity = 1,
     // widget dimension and spacing
     required this.width,
     this.horizontalPadding = 0,
@@ -46,6 +49,8 @@ class CartProductWidget extends StatelessWidget {
     this.onTap,
     // number picker
     this.showNumberPicker = false,
+    // events
+    required this.onUpdate,
 
     Key? key,
   }) : super(key: key);
@@ -81,6 +86,7 @@ class CartProductWidget extends StatelessWidget {
               margin: EdgeInsets.only(right: imageAndDetailsSpacing),
               height: imageDimensions,
               width: imageDimensions,
+              child: product==null ? Container() : CartImage(imgUrl: product!.imageUrl),
             ),
       
             // details
@@ -95,7 +101,7 @@ class CartProductWidget extends StatelessWidget {
       
                   // Product name
                   Text(
-                    productName,
+                    product==null ? 'Loading' : product!.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -109,7 +115,7 @@ class CartProductWidget extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     child: Text(
-                      ('₱ ' + price.toStringAsFixed(2) + ' each'),
+                      ('₱ ' + (product?.price ?? 0).toStringAsFixed(2) + ' each x ${quantity.toString()}'),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -122,7 +128,7 @@ class CartProductWidget extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     child: Text(
-                      ('₱ ' + (price*quantity).toStringAsFixed(2)),
+                      ('₱ ' + ((product?.price ?? 0)*quantity).toStringAsFixed(2)),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -132,9 +138,10 @@ class CartProductWidget extends StatelessWidget {
                     ),
                   ),
 
-                  if(showNumberPicker) CustomNumberPicker(
+                  if(product!=null) CustomNumberPicker(
                     value: quantity,
-                    onChange: (_) {},
+                    onDelete: () { },
+                    onUpdate: onUpdate,
                   ),
       
                 ],

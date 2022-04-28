@@ -1,5 +1,6 @@
 part of 'cart_bloc.dart';
 
+// * StateAbstraction
 abstract class CartState extends Equatable {
   const CartState();
   
@@ -7,7 +8,11 @@ abstract class CartState extends Equatable {
   List<Object> get props => [];
 }
 
+
 class CartInitial extends CartState {}
+
+
+class CartLoading extends CartState {}
 
 
 class CartLoaded extends CartState {

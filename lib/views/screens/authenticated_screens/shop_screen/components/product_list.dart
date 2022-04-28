@@ -1,5 +1,4 @@
 import 'package:bluehive_exam/controllers/blocs/cart_bloc/cart_bloc.dart';
-import 'package:bluehive_exam/controllers/blocs/user_bloc/user_bloc.dart';
 import 'package:bluehive_exam/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +41,9 @@ class ProductList extends StatelessWidget {
                 topMargin: 15,
                 onTap: () {
 
-                  debugPrint('product ID: ' + _products[index].id);
+                  debugPrint('\n\n\nproduct ID: ' + _products[index].id);
+
+                  // debugPrint('product image: ' + _products[index].imageUrl);
 
                   showMaterialModalBottomSheet(
                     context: context,
@@ -53,23 +54,20 @@ class ProductList extends StatelessWidget {
                       controller: ModalScrollController.of(context),
                       child: ProductBottomSheet(
                         product: _products[index],
-                        onAddToCart: () {
+                        onAddToCart: (value) {
 
-                          UserState _userBlocState = context.read<UserBloc>().state;
+                          debugPrint('\nAdd to cart)');
+                          debugPrint('  name: ${_products[index].name}');
+                          debugPrint('  qty: ${value.toString()}');
 
-                          if(_userBlocState is UserAuthenticated) {
-
-                            context.read<CartBloc>()
-                              .add(
-                                AddToCart(
-                                  id: _userBlocState.user.id,
-                                  productId: _products[index].id,
-                                  quantity: 1
-                                )
-                              );
-
-                          }
-
+                          context.read<CartBloc>()
+                            .add(
+                              AddToCart(
+                                productId: _products[index].id,
+                                quantity: value
+                              )
+                            );
+                              
                           Navigator.of(context).pop();
 
                         },

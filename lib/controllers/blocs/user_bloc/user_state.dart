@@ -15,16 +15,14 @@ class UserLoading extends UserState {}
 // * User Authenticated State
 class UserAuthenticated extends UserState {
 
-  final User user;
-  final firebaseAuth.UserCredential? userCredential;
+  final UserCredential userCredential;
 
   const UserAuthenticated({
-    required this.user,
     required this.userCredential,
   });
   
   @override
-  List<Object?> get props => [user, userCredential];
+  List<Object> get props => [userCredential];
 
 }
 

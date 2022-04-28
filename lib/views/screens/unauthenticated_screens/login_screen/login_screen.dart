@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bluehive_exam/controllers/blocs/authentication_bloc/authentication_bloc.dart';
-import 'package:bluehive_exam/views/components/custom_dividers/labeled_horizontal_divider.dart';
-import 'package:bluehive_exam/views/components/custom_textfield/custom_textfield.dart';
-import 'package:bluehive_exam/views/components/header/header.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../components/banner/banner.dart';
+import '../../../components/bloc_state_information/firebase_email_authentication_state_information.dart';
 import '../../../components/custom_button.dart/custom_button.dart';
+import '../../../components/custom_dividers/labeled_horizontal_divider.dart';
+import '../../../components/header/header.dart';
 import '../../../routing/routers/unauthenticated_router/unauthenticated_router.gr.dart';
+import 'screen_components/login_form.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -33,12 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
 
     debugPrint('Rebuild - LoginScreen()');
-
-    // Theme.of(context).appBarTheme;
-
-    // CustomThemeData _theme = CustomTheme.of(context: context);
-
-    // Color _primaryColor = _theme.primaryColor;
 
     double _sideMargin = 15;
 
@@ -71,42 +64,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   margin: EdgeInsets.fromLTRB(_sideMargin, 30, _sideMargin, 0),
                 ),
 
-                // * Email Textfield
-                CustomTextField(
-                  margin: EdgeInsets.fromLTRB(_sideMargin, 30, _sideMargin, 0),
-                  controller: usernameController,
-                  hintText: 'Email',
-                ),
-          
-                
-                // * Password Textfield
-                CustomTextField(
-                  margin: EdgeInsets.fromLTRB(_sideMargin, 20, _sideMargin, 0),
-                  controller: usernameController,
-                  hintText: 'Password',
-                  obscureText: true,
-                ),
-          
+                // * Auth State
+                const FirebaseEmailAuthenticationStateInformation(),
 
-                // * Login Button
-                CustomButton(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  margin: EdgeInsets.fromLTRB(_sideMargin, 20, _sideMargin, 0),
-                  backgroundColor: Colors.grey,
-                  borderRadius: 5,
-                  name: 'Login',
-                  textSize: 14,
-                  textColor: Colors.white,
-                  onTap: () {
-                    // context
-                    // .read<AuthenticationBloc>()
-                    // .add(const AuthenticationEmailLogin(
-                    //   email: 'email@website.com',
-                    //   password: 'password')
-                    // );
-                  },
-                ),
-          
+                // * Login Form
+                const LoginForm(),
           
                 // * Forgot Password Button
                 Container(
@@ -119,8 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         expanded: true,
                         flex: 1,
                         width: 400,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        // margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         backgroundColor: Colors.transparent,
                         borderColor: Colors.grey,
                         borderWidth: 2,
@@ -129,7 +90,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         textSize: 14,
                         textColor: Colors.grey,
                         onTap: () {
-                          debugPrint('forgot');
+                          ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                              content: Text('Forgot password function not yet implemented.'),
+                              duration: Duration(milliseconds: 700),
+                            )
+                          );
                         },
                       ),
 
@@ -168,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
           
                 // * Login Using Facebook Button
                 CustomButton(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   margin: EdgeInsets.fromLTRB(_sideMargin, 40, _sideMargin, 0),
                   backgroundColor: Colors.grey,
                   borderRadius: 5,
@@ -176,26 +142,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   textSize: 14,
                   textColor: Colors.white,
                   onTap: () {
-                    debugPrint('Facebook');
+                    ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(
+                        content: Text('Facebook login function not yet implemented.'),
+                        duration: Duration(milliseconds: 700),
+                      )
+                    );
                   },
                 ),
           
           
                 // * Login Using Google Button
                 CustomButton(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   margin: EdgeInsets.fromLTRB(_sideMargin, 20, _sideMargin, 0),
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Colors.grey,
                   borderRadius: 5,
                   name: 'Login using Google',
                   textSize: 14,
                   textColor: Colors.white,
                   onTap: () {
-
-                    context.read<AuthenticationBloc>().add(const AuthenticationGoogleAuthLogin());
-
-                    debugPrint('Google');
-
+                    ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(
+                        content: Text('Google login function not yet implemented.'),
+                        duration: Duration(milliseconds: 700),
+                      )
+                    );
                   },
                 ),
           

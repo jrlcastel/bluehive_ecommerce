@@ -1,37 +1,45 @@
-import 'package:firebase_auth/firebase_auth.dart' as auth; // * use as keyword to resolve name conflicts
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../models/user.dart';
 
 class FirebaseAuthenticationRepository {
 
-  final auth.FirebaseAuth _firebaseAuth;
+  final FirebaseAuth firebaseAuth;
 
    FirebaseAuthenticationRepository({
-     auth.FirebaseAuth? firebaseAuth
-   }) : _firebaseAuth = firebaseAuth ?? auth.FirebaseAuth.instance;
+     required this.firebaseAuth
+   });
+   
+
+  // * Login
+  Future<UserCredential> emailLogin ({
+    required String email,
+    required String password,
+  }) async => await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+  // }) async => await firebaseAuth.signInWithEmailAndPassword(email: email, password: password).asStream();
 
 
-   Future<User> firebaseEmailRegistration ({
-     required String email,
-     required String firstName,
-     required String lastName,
-     required String password,
-     required String confirmPassword,
-   }) async {
+  // * Logout
+  Future emailLogout() async => await firebaseAuth.signOut();
 
-    //  await Future.delayed(const Duration(seconds: 1));
 
-     return User(
-      email: 'dummyEmail@dummy.com',
-      displayName: 'displayName',
-      id: 'id',
-     );
+  // * Registration
+  Future<UserCredential> firebaseEmailRegistration ({ 
+    required String email,  
+    required String displayName,
+    required String password,
+    required String confirmPassword,
+  }) async {  
 
-   }
+    // firebaseAuth
 
-  // * listen to changes to the user
-   Stream<auth.User?> get user => _firebaseAuth.userChanges();
-
+    try {
+      UserCredential _userCredential = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      return _userCredential;
+    }
+    catch(e) {
+      rethrow;
+    }
+    
+  }
 
 }

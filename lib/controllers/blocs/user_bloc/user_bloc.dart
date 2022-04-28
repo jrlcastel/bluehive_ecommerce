@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:bluehive_exam/controllers/blocs/authentication_bloc/authentication_bloc.dart';
-import 'package:bluehive_exam/models/user.dart';
+import 'package:bluehive_exam/controllers/blocs/firebase_email_authentication_bloc/firebase_email_authentication_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 part 'user_event.dart';
@@ -12,42 +9,46 @@ part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
 
-  final AuthenticationBloc authenticationBloc;
-  // late StreamSubscription subscription;
+
+  final FirebaseEmailAuthenticationBloc firebaseEmailAuthenticationBloc;
+
 
   UserBloc({
-    required this.authenticationBloc,
+    required this.firebaseEmailAuthenticationBloc,
   }) : super(UserInitial()) {
 
-    // * Authentication State listener
-    authenticationBloc.stream.listen((_authState) {
 
-        // auth loading states
-        if (_authState is AuthenticationLoading || 
-            _authState is AuthenticationLogginIn || 
-            _authState is AuthenticationLoggingOut
+    // * Listen to FirebaseEmailAuthenticationBloc bloc
+    firebaseEmailAuthenticationBloc.stream.listen((_authState) {
+
+        // * Auth loading states
+        if (_authState is FirebaseEmailAuthenticationLoading || 
+            _authState is FirebaseEmailAuthenticationLoggingOut
         ) {
           debugPrint('UserState - loading');
           add(LoadUser());
         }
-        // if authentication state is logged in, simulate a SetUser event
-        else if(_authState is AuthenticationLoggedIn) {
-          add(SetUser(user: _authState.user, userCredential: _authState.userCredential));
+        // * Auth logged in states
+        else if(_authState is FirebaseEmailAuthenticationLoggedIn) {
+          add(SetUser(userCredential: _authState.userCredential));
         }
-        // user not set
+        // * Auth logged out states
         else if (
-          _authState is AuthenticationInitial ||
-          _authState is AuthenticationLoggedOut
+          _authState is FirebaseEmailAuthenticationLoggingIn || 
+          _authState is FirebaseEmailAuthenticationInitial ||
+          _authState is FirebaseEmailAuthenticationLoggedOut ||
+          _authState is FirebaseEmailAuthenticationRegistering ||
+          _authState is FirebaseEmailAuthenticationRegistered
         ) {
           add(UnsetUser());
         } 
-        // user error
-        else if (_authState is AuthenticationError) {
+        // * Auth error states
+        else if (_authState is FirebaseEmailAuthenticationError) {
           add(const SetUserError(errorMessage: 'Authentication Error.'));
         }
-        // unknown error
+        // * Auth unknown error states
         else {
-          add(const SetUserError(errorMessage: 'Unknown error.'));
+          add(const SetUserError(errorMessage: 'Unknown state.'));
         }
      });
 
@@ -55,7 +56,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
      // * Set User Event
      on<SetUser>((event, emit) async {
-       emit(UserAuthenticated(userCredential: event.userCredential, user: event.user));
+       emit(UserAuthenticated(userCredential: event.userCredential));
      });
 
      // * Unset User Event

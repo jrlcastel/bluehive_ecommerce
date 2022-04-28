@@ -1,11 +1,11 @@
-class User {
+class LocalUserData {
 
-  final String id;
+  final String userId;
   final String displayName;
   final String email;
 
-  User({
-    required this.id,
+  LocalUserData({
+    required this.userId,
     required this.displayName,
     required this.email,
   });

@@ -1,5 +1,3 @@
-
-import 'package:bluehive_exam/controllers/repositories/product_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'product.dart';
@@ -10,14 +8,14 @@ class CartProduct {
   final String productId;
   final String userId;
   final int quantity;
-  // final Product product;
+  final Product? product;
 
   CartProduct({
     required this.id,
     required this.userId,
     required this.productId,
     required this.quantity,
-    // required this.product,
+    this.product,
   });
 
 

@@ -10,16 +10,14 @@ abstract class UserEvent extends Equatable {
 
 class SetUser extends UserEvent {
 
-  final User user;
-  final firebaseAuth.UserCredential? userCredential;
+  final UserCredential userCredential;
 
   const SetUser({
-    required this.user,
     required this.userCredential
   });
 
   @override
-  List<Object?> get props => [user, userCredential];
+  List<Object> get props => [userCredential];
 
 }
 

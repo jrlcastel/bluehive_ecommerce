@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../controllers/blocs/cart_bloc/cart_bloc.dart';
 import '../../../routing/routers/authenticated_router/authenticated_router.gr.dart';
-import '../checkout_screen/checkout_screen.dart';
 
 class CheckoutDetails extends StatelessWidget {
   const CheckoutDetails({Key? key}) : super(key: key);
@@ -25,7 +24,7 @@ class CheckoutDetails extends StatelessWidget {
 
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          color: Colors.grey,
+          color: Colors.grey[300],
           child: Row(
             children: [
               
@@ -36,7 +35,7 @@ class CheckoutDetails extends StatelessWidget {
     
                   Text(
                     '${_itemCount.toString()} items',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
@@ -45,7 +44,7 @@ class CheckoutDetails extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 5),
                     child: Text(
                       'Subtotal: P ${_total.toStringAsFixed(2)}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -54,12 +53,20 @@ class CheckoutDetails extends StatelessWidget {
                 ],
               ),
     
-              Spacer(),
+              const Spacer(),
     
-              ElevatedButton(onPressed: () {
-                final _router = context.router;
-                _router.push(CheckoutRoute());
-              }, child: Text('Checkout'))
+              ElevatedButton(
+                child: const Text('Checkout'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(_itemCount>0 ? Colors.blue : Colors.grey),
+                ),
+                onPressed: () {
+                  if(_itemCount>0) {
+                    final _router = context.router;
+                    _router.push(const CheckoutRoute());
+                  }
+                },
+              )
     
             ],
           ),

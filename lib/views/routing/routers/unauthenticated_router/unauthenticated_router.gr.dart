@@ -25,12 +25,20 @@ class UnauthenticatedRouter extends _i3.RootStackRouter {
   @override
   final Map<String, _i3.PageFactory> pagesMap = {
     LoginRoute.name: (routeData) {
-      return _i3.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i1.LoginScreen());
+      return _i3.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i1.LoginScreen(),
+          transitionsBuilder: _i3.TransitionsBuilders.noTransition,
+          opaque: true,
+          barrierDismissible: false);
     },
     RegisterRoute.name: (routeData) {
-      return _i3.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i2.RegistrationScreen());
+      return _i3.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i2.RegistrationScreen(),
+          transitionsBuilder: _i3.TransitionsBuilders.noTransition,
+          opaque: true,
+          barrierDismissible: false);
     }
   };
 
